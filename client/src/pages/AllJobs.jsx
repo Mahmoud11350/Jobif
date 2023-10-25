@@ -1,24 +1,28 @@
 import { jobSearch } from "../utils/jobInput";
-import JobForm from "../components/JobForm";
+import JobSearchForm from "../components/JobSearchForm";
 import customFetch from "../utils/customFetch";
 import { toast } from "react-toastify";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import Job from "../components/Job";
 import { createContext, useContext } from "react";
 
-export const loader = async () => {
+export const loader = async ({ request }) => {
+  const params = Object.fromEntries([
+    ...new URL(request.url).searchParams.entries(),
+  ]);
+
   try {
-    const { data } = await customFetch.get("/jobs");
-    return data;
+    const { data } = await customFetch.get("/jobs", { params });
+    return { data };
   } catch (error) {
-    toast.error(error);
+    console.log(error);
+    return error;
   }
 };
 
 const JobsContext = createContext();
 const AllJobs = () => {
-  const data = useLoaderData();
-  console.log(data);
+  const { data } = useLoaderData();
   const navigate = useNavigate();
   const editJob = ({ id }) => {
     navigate(`/dashboard/edit-job/${id}`);
@@ -27,7 +31,7 @@ const AllJobs = () => {
   return (
     <JobsContext.Provider value={{ data, editJob }}>
       <>
-        <JobForm inputs={jobSearch} type={"search"} />
+        <JobSearchForm inputs={jobSearch} type={"search"} method={"get"} />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 my-8 mx-12 p-4">
           {data?.jobs?.map((job) => {
             const {

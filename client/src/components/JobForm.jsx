@@ -1,6 +1,5 @@
-import { Form, useNavigation } from "react-router-dom";
+import { Form } from "react-router-dom";
 const JobForm = ({ inputs, type, method }) => {
-  const navigation = useNavigation();
   return (
     <div className="bg-white my-8 mx-12 p-4 rounded-lg">
       <h4 className="mb-4 text-center ">
