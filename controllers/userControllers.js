@@ -43,16 +43,16 @@ export const updateUser = async (req, res) => {
     throw new NOTFOUND(`can't find user with id ${id}`);
   }
   checkPermission({ req, id });
-  const { imgSrc, publicId } = await uploadUserImg({ req });
+  let updateQuery = { ...req.body };
+  if (req.files && req.files.avatar) {
+    const { imgSrc, publicId } = await uploadUserImg({ req });
+    updateQuery = { ...req.body, avatar: imgSrc, publicId };
+  }
 
-  const user = await User.findByIdAndUpdate(
-    id,
-    { ...req.body, avatar: imgSrc, publicId },
-    {
-      runValidators: true,
-      new: true,
-    }
-  );
+  const user = await User.findByIdAndUpdate(id, updateQuery, {
+    runValidators: true,
+    new: true,
+  });
   if (req.files && user.publicId) {
     await cloudinary.uploader.destroy(isUserExist.publicId);
   }
