@@ -24,6 +24,7 @@ import { action as deleteJobAction } from "./pages/DeleteJob";
 import { action as profileFromAction } from "./components/ProfileForm";
 import { loader as adminLoader } from "./pages/Admin";
 import { loader as statsLoader } from "./pages/Stats";
+import { loader as chechExistUserLoader } from "./pages/Landing";
 
 const pagesRouter = createBrowserRouter([
   {
@@ -34,6 +35,7 @@ const pagesRouter = createBrowserRouter([
       {
         index: true,
         element: <Landing />,
+        loader: chechExistUserLoader,
       },
       {
         path: "register",

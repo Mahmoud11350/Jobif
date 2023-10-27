@@ -1,6 +1,15 @@
 import Logo from "../components/Logo";
 import jobHunt from "../assets/img/job-hunt.svg";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
+import customFetch from "../utils/customFetch";
+export const loader = async () => {
+  try {
+    await customFetch("/users/current-user");
+    return redirect("/dashboard");
+  } catch (error) {
+    return null;
+  }
+};
 const Landing = () => {
   return (
     <section className="container">
