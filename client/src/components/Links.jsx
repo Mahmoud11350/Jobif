@@ -10,11 +10,16 @@ const Links = () => {
 
         return (
           <NavLink
+            end
             key={link.name}
             to={`${
               link.name == "profile" ? link.path + "/" + user._id : link.path
             }`}
-            className="flex items-center capitalize gap-4 mb-8 text-lg "
+            className={({ isActive }) =>
+              isActive
+                ? "flex items-center capitalize gap-4 mb-8 text-lg bg-mainColor text-white font-bold py-1 px-2 rounded"
+                : "flex items-center capitalize gap-4 mb-8 text-lg"
+            }
             onClick={toggleMobileSidebar}
           >
             {link.icons}

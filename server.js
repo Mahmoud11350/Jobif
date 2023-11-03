@@ -50,7 +50,7 @@ app.use(notFound);
 app.use(errorHandler);
 const start = async () => {
   try {
-    await connect(process.env.MONGO_URI);
+    await connect(process.env.MONGOCLUSTER);
     app.listen(
       process.env.PORT,
       console.log(`server is running on port ${process.env.PORT}`)

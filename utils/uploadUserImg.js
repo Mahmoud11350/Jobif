@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import { BADREQUEST } from "../errors/customErrors.js";
+import fs from "fs";
 
 const uploadUserImg = async ({ req }) => {
   let filePath;
@@ -19,6 +20,7 @@ const uploadUserImg = async ({ req }) => {
       use_filename: true,
       public_id: filePath.name,
     });
+    fs.unlinkSync(filePath.tempFilePath);
     return {
       imgSrc: result.secure_url,
       publicId: result.public_id,

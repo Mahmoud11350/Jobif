@@ -19,19 +19,19 @@ const Stats = () => {
       <div className="m-8 grid lg:grid-cols-3 gap-4">
         <StatsCard
           name={"interview"}
-          totalNum={stats.interview}
+          totalNum={stats.interview || 0}
           cardType={"interview"}
           icon={<BsFillBriefcaseFill />}
         />
         <StatsCard
           name={"pending"}
-          totalNum={stats.pending}
+          totalNum={stats.pending || 0}
           cardType={"pending"}
           icon={<MdPendingActions />}
         />
         <StatsCard
           name={"declined"}
-          totalNum={stats.declined}
+          totalNum={stats.declined || 0}
           cardType={"declined"}
           icon={<MdOutlineGppBad />}
         />

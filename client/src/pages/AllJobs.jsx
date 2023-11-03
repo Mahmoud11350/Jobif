@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import Job from "../components/Job";
 import { createContext, useContext } from "react";
+import Pagination from "../components/Pagination";
 
 export const loader = async ({ request }) => {
   const params = Object.fromEntries([
@@ -23,6 +24,7 @@ export const loader = async ({ request }) => {
 const JobsContext = createContext();
 const AllJobs = () => {
   const { data } = useLoaderData();
+  console.log(data);
   const navigate = useNavigate();
   const editJob = ({ id }) => {
     navigate(`/dashboard/edit-job/${id}`);
@@ -58,6 +60,10 @@ const AllJobs = () => {
             );
           })}
         </div>
+        <Pagination
+          numOfPages={data.numOfPages}
+          currentPage={data.currentPage}
+        />
       </>
     </JobsContext.Provider>
   );

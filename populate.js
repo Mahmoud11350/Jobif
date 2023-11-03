@@ -6,7 +6,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 const populateJobs = async () => {
   try {
-    await connect(process.env.MONGO_URI);
+    await connect(process.env.MONGOCLUSTER);
     const user = await User.findOne({ email: "demo@gmail.com" });
     const jobs = mockJobs.map((job) => {
       return { ...job, createdBy: user._id };
