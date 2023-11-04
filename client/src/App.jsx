@@ -30,7 +30,7 @@ const pagesRouter = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout />,
-    // errorElement: <ErrorPage />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,

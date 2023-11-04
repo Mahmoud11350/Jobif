@@ -44,7 +44,7 @@ const Links = () => {
         onClick={logoutHandler}
         className="flex items-center capitalize gap-4 mb-8 text-lg bg-red-500 px-2 py-1 rounded hover:bg-red-700 text-white"
       >
-        <BiLogOut /> Log Out
+        <BiLogOut /> Logout
       </button>
     </div>
   );
