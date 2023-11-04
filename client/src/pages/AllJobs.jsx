@@ -1,7 +1,6 @@
 import { jobSearch } from "../utils/jobInput";
 import JobSearchForm from "../components/JobSearchForm";
 import customFetch from "../utils/customFetch";
-import { toast } from "react-toastify";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import Job from "../components/Job";
 import { createContext, useContext } from "react";
@@ -16,7 +15,6 @@ export const loader = async ({ request }) => {
     const { data } = await customFetch.get("/jobs", { params });
     return { data };
   } catch (error) {
-    console.log(error);
     return error;
   }
 };
@@ -24,7 +22,6 @@ export const loader = async ({ request }) => {
 const JobsContext = createContext();
 const AllJobs = () => {
   const { data } = useLoaderData();
-  console.log(data);
   const navigate = useNavigate();
   const editJob = ({ id }) => {
     navigate(`/dashboard/edit-job/${id}`);

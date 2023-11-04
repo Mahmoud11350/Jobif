@@ -2,8 +2,15 @@ import Navbar from "../components/Navbabr";
 import MobileSidebar from "../components/MobileSidebar";
 import Sidebar from "../components/Sidebar";
 import { createContext, useContext, useState } from "react";
-import { Outlet, redirect, useLoaderData } from "react-router-dom";
+import {
+  Outlet,
+  redirect,
+  useLoaderData,
+  useNavigation,
+} from "react-router-dom";
 import customFetch from "../utils/customFetch";
+import Loading from "../components/Loading";
+
 const DashboardContext = createContext();
 export const loader = async () => {
   try {
@@ -17,14 +24,13 @@ const DashboardProvider = () => {
   const user = useLoaderData();
   const [sidebar, setSidebar] = useState(true);
   const [mobileSidebar, setMobileSidebar] = useState(false);
-  const [loggingOut, setLoggingOut] = useState(false);
-
+  const navigation = useNavigation();
+  const isLoading = navigation.state == "loading";
   const toggleSidebar = () => {
     setSidebar(!sidebar);
     setMobileSidebar(!mobileSidebar);
   };
   const toggleMobileSidebar = () => setMobileSidebar(!mobileSidebar);
-  const loggingOutHandler = () => setLoggingOut(!loggingOut);
   return (
     <DashboardContext.Provider
       value={{
@@ -32,8 +38,7 @@ const DashboardProvider = () => {
         mobileSidebar,
         toggleSidebar,
         toggleMobileSidebar,
-        loggingOut,
-        loggingOutHandler,
+
         user,
       }}
     >
@@ -44,7 +49,7 @@ const DashboardProvider = () => {
         </div>
         <div>
           <Navbar />
-          <Outlet />
+          {isLoading ? <Loading /> : <Outlet />}
         </div>
       </div>
     </DashboardContext.Provider>

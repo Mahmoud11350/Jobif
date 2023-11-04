@@ -28,6 +28,7 @@ const Pagination = ({ numOfPages, currentPage }) => {
         {pages.map((page) => {
           return (
             <li
+              key={page}
               className={`py-2 px-3 ${
                 page == currentPage && "bg-mainColor text-white"
               }  rounded-lg border`}

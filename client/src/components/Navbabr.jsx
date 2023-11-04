@@ -3,22 +3,9 @@ import { AiOutlineAlignLeft } from "react-icons/ai";
 import { RxAvatar } from "react-icons/rx";
 import { AiFillCaretDown } from "react-icons/ai";
 import { useDashboardContext } from "../pages/DashboardLayout";
-import { toast } from "react-toastify";
-import customFetch from "../utils/customFetch";
-import { useNavigate } from "react-router-dom";
 const Navbar = () => {
-  const navigate = useNavigate();
-  const { toggleSidebar, loggingOut, loggingOutHandler, user } =
-    useDashboardContext();
-  const logoutHandler = async () => {
-    try {
-      await customFetch.post("/auth/logout");
-      navigate("/login");
-      toast.success("Good Bye See You Later");
-    } catch (error) {
-      toast.error(error.response.data.msg);
-    }
-  };
+  const { toggleSidebar, user } = useDashboardContext();
+
   return (
     <nav
       className="flex
@@ -44,18 +31,7 @@ const Navbar = () => {
           <RxAvatar className="text-2xl" />
         )}
 
-        <h5 onClick={loggingOutHandler}>{`${user.firstName}`}</h5>
-        <button>
-          <AiFillCaretDown />
-        </button>
-        {loggingOut && (
-          <button
-            className=" absolute -bottom-9 right-1/2 translate-x-1/2 bg-red-500 hover:bg-red-600 py-1 px-2 rounded text-white "
-            onClick={logoutHandler}
-          >
-            Logout
-          </button>
-        )}
+        <h5>{`${user.firstName}`}</h5>
       </div>
     </nav>
   );
