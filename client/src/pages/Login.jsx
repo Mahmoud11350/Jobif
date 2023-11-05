@@ -4,17 +4,21 @@ import Logo from "../components/Logo";
 import customFetch from "../utils/customFetch";
 import { toast } from "react-toastify";
 
-export const action = async ({ request }) => {
-  const formData = await request.formData();
-  const data = Object.fromEntries(formData);
-  try {
-    await customFetch.post("/auth/login", data);
-    toast.success("Welcome Back ");
-    return redirect("/dashboard");
-  } catch (error) {
-    return toast.error(error.response.data.msg);
-  }
-};
+export const action =
+  (queryClient) =>
+  async ({ request }) => {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData);
+    try {
+      await customFetch.post("/auth/login", data);
+      queryClient.invalidateQueries();
+
+      toast.success("Welcome Back ");
+      return redirect("/dashboard");
+    } catch (error) {
+      return toast.error(error.response.data.msg);
+    }
+  };
 const Login = () => {
   const navigate = useNavigate();
   const inputs = [
@@ -29,7 +33,7 @@ const Login = () => {
 
       toast.success("Take a Test Drive");
     } catch (error) {
-      navigate("/landing");
+      navigate("/");
       toast.error("Something Wrong ");
     }
   };

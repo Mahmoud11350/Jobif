@@ -20,7 +20,7 @@ export const loader = async () => {
     return redirect("/");
   }
 };
-const DashboardProvider = () => {
+const DashboardProvider = ({ queryClient }) => {
   const user = useLoaderData();
   const [sidebar, setSidebar] = useState(true);
   const [mobileSidebar, setMobileSidebar] = useState(false);
@@ -45,7 +45,7 @@ const DashboardProvider = () => {
       <div className="grid grid-cols-[auto_1fr] items-stretch">
         <div>
           <MobileSidebar />
-          <Sidebar />
+          <Sidebar queryClient={queryClient} />
         </div>
         <div>
           <Navbar />

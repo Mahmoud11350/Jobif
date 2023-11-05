@@ -3,16 +3,24 @@ import { redirect, useLoaderData } from "react-router-dom";
 import StatsCard from "../components/StatsCard";
 import { MdPendingActions, MdOutlineGppBad } from "react-icons/md";
 import { BsFillBriefcaseFill } from "react-icons/bs";
-export const loader = async () => {
-  try {
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+
+const statsQuery = {
+  queryKey: ["stats"],
+  queryFn: async () => {
     const { data } = await customFetch("/jobs/show-stats");
     return data;
-  } catch (error) {
-    return redirect("/dashboard");
-  }
+  },
+};
+
+export const loader = (queryClient) => async () => {
+  const data = await queryClient.ensureQueryData(statsQuery);
+  return data;
 };
 const Stats = () => {
-  const { stats } = useLoaderData();
+  const {
+    data: { stats },
+  } = useQuery(statsQuery);
 
   return (
     <>

@@ -4,16 +4,14 @@ import { useDashboardContext } from "../pages/DashboardLayout";
 import { BiLogOut } from "react-icons/bi";
 import customFetch from "../utils/customFetch";
 import { toast } from "react-toastify";
-const Links = () => {
+const Links = ({ queryClient }) => {
   const navigate = useNavigate();
   const logoutHandler = async () => {
-    try {
-      await customFetch.post("/auth/logout");
-      navigate("/login");
-      toast.success("Good Bye See You Later");
-    } catch (error) {
-      toast.error(error.response.data.msg);
-    }
+    navigate("/login");
+    await customFetch.post("/auth/logout");
+    queryClient.invalidateQueries();
+
+    toast.success("Good Bye See You Later");
   };
   const { user, toggleMobileSidebar } = useDashboardContext();
   return (

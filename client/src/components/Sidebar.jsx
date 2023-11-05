@@ -1,7 +1,7 @@
 import { useDashboardContext } from "../pages/DashboardLayout";
 import Links from "./Links";
 import Logo from "./Logo";
-const Sidebar = () => {
+const Sidebar = ({ queryClient }) => {
   const { sidebar, toggleSidebar } = useDashboardContext();
   return (
     <section
@@ -10,7 +10,7 @@ const Sidebar = () => {
       }`}
     >
       <Logo />
-      <Links />
+      <Links queryClient={queryClient} />
     </section>
   );
 };

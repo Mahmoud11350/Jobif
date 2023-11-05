@@ -57,10 +57,12 @@ const AllJobs = () => {
             );
           })}
         </div>
-        <Pagination
-          numOfPages={data.numOfPages}
-          currentPage={data.currentPage}
-        />
+        {data.numOfPages > 1 && (
+          <Pagination
+            numOfPages={data.numOfPages}
+            currentPage={data.currentPage}
+          />
+        )}
       </>
     </JobsContext.Provider>
   );
